@@ -4,7 +4,7 @@ let wordBrightness = 255;
 let yOffset = 0;
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-background(0);
+background(20);
 rectMode(CENTER);
 textAlign(CENTER);
 textFont('Luminari '); // please use CSS safe fonts
@@ -45,9 +45,17 @@ rect(8*width/10, rectY, width/6, volume_other);
 fill(200)
 textAlign(LEFT);
 // demonstrate use of non-documented "counter" variable
-let seconds = counter/60
+let seconds = counter
 if(seconds > 0) {
+  fill(100,20,30)
   textSize(60);
-  text(nf(seconds, 3, 2), 20, height-20);
+  text(nf(seconds, 3, 2), 20, height-400);
 }
+
+
+
+
 }
+
+
+
