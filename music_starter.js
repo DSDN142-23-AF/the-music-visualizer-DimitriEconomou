@@ -2,6 +2,7 @@ let firstRun = true
 let armImg;
 let rightpenImg;
 let leftpenImg;
+let gradientImg;
 //vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) { 
   
@@ -10,19 +11,25 @@ if(firstRun){
   armImg = loadImage("arm.png")
   rightpenImg = loadImage("pen.png")
   leftpenImg = loadImage("leftpen.png")
+  gradientImg = loadImage("gradient.png")
 
   firstRun = false
   }
-  
-background(0)
+
+  background(0)
+ 
+
 
 let armMovement =map(counter,0,4,-800,-60)
 
-if(counter>0&&counter<4){
+if(counter>0&&counter<4){  
+image(gradientImg,155,armMovement+10)
 image(armImg,135,armMovement)
+
 }
   
-else{
+else{  
+image(gradientImg,155,-50) 
 image(armImg,135,-60)
 }
 ////////////////////////////////////////////////////////////////////stroke of heart lighter green
@@ -149,7 +156,7 @@ else{
       beginShape();
       if (counter>47.5) curveVertex(310, 240); 
       if (counter>47.5) curveVertex(310, 240); 
-      if (counter>47.5&&counter<=59.375) curveVertex(lefthpoint1x,lefthpoint1y);
+      if (counter>47.5&&counter<=59.375) curveVertex(lefthpoint1x,lefthpoint1y); //each curveVertex is every 11.875 seconds since the right arc occurs from 47.5-95 seconds (2nd quarter of the song)
       if (counter>47.5&&counter<=59.375) curveVertex(lefthpoint1x,lefthpoint1y)
       if (counter>59.375) curveVertex(320,150);
       if (counter>=59.375&&counter<=71.25) curveVertex(lefthpoint2x,lefthpoint2y);
@@ -174,7 +181,7 @@ else if(counter>95){
   beginShape();
   if (counter>95) curveVertex(440, 200);
   if (counter>95) curveVertex(440, 200);
-  if (counter>95&&counter<=106.875) curveVertex(righthpoint1x,righthpoint1y);
+  if (counter>95&&counter<=106.875) curveVertex(righthpoint1x,righthpoint1y);  //each curveVertex is every 11.875 seconds since the right arc occurs from 95-142.5 seconds (3rd quarter of the song)
   if (counter>47.5&&counter<=106.875) curveVertex(righthpoint1x,righthpoint1y)
   if (counter>106.875) curveVertex(460,150);
   if (counter>=106.875&&counter<=118.75) curveVertex(righthpoint2x,righthpoint2y);
@@ -205,7 +212,7 @@ else if(counter>95){
 ////////////////////////////////////////////////////////////coding the sides
 var Colourbass =map(bass,0,100,0,255)
 var Colourdrum =map(drum,0,100,0,255)
-var Colourother =map(other,0,100,0,255)
+var Colourvocal =map(vocal,0,100,0,255)
 
 
 for(var j=0;j<=5;j++){
@@ -223,15 +230,15 @@ for(var i =1; i<= 2; i++){
   let lineStepsmall = i*38-25
   let lineStepmiddle = i*21
  strokeWeight(4)
- stroke(Colourbass,Colourdrum,Colourother)
+ stroke(Colourbass,Colourdrum,Colourvocal)
  line(lineStart,lineStepsmall+linesetStep, lineEndsmall, lineStepsmall+linesetStep)
- stroke(Colourother,Colourdrum,Colourbass)
+ stroke(Colourvocal,Colourdrum,Colourbass)
  line(lineStart,lineStepmiddle+linesetStep, lineEndmiddle, lineStepmiddle+linesetStep)
  }
 
 for(var i =1; i<= 1; i++){
  var lineSteplarge = i*32
- stroke(Colourdrum,Colourbass,Colourother)
+ stroke(Colourdrum,Colourbass,Colourvocal)
  strokeWeight(4)
  line(lineStart,lineSteplarge+linesetStep, lineEndlarge, lineSteplarge+linesetStep)
  }
@@ -250,25 +257,26 @@ for(var i =1;i<=2; i++){
  let lineStepsmall = i*38-25
  let lineStepmiddle = i*21
  strokeWeight(4)
- stroke(Colourbass,Colourdrum,Colourother)
+ stroke(Colourbass,Colourdrum,Colourvocal)
  line(lineStartright,lineStepsmall+linesetStep, lineEndrightsmall, lineStepsmall+linesetStep)
- stroke(Colourother,Colourdrum,Colourbass)
+ stroke(Colourvocal,Colourdrum,Colourbass)
  line(lineStartright,lineStepmiddle+linesetStep, lineEndrightmiddle, lineStepmiddle+linesetStep)
  }  
 
 for(var i =1; i<= 1; i++){
  let lineSteplarge = i*32
- stroke(Colourdrum,Colourbass,Colourother)
+ stroke(Colourdrum,Colourbass,Colourvocal)
  strokeWeight(4)
  line(lineStartright,lineSteplarge+linesetStep, lineEndrightlarge, lineSteplarge+linesetStep )
  }
  
-image(rightpenImg,500,linesetStep)  
+image(rightpenImg,500,linesetStep)
+
 }
-  
+
 stroke(64,145,116)
 strokeWeight(2)
-  textFont('Lucida Handwriting'); // please use CSS safe fonts
+  textFont('Lucida Handwriting'); 
   rectMode(CENTER)
   textSize(10);
 
@@ -278,6 +286,15 @@ strokeWeight(2)
    textAlign(CENTER);
    textSize(vocal/2.65);
    text(words, width/1.825, height-215);
+
+   if(counter>189.7){
+    textAlign(CENTER);
+   textSize(100/2.65);
+   text('heart', width/1.825, height-215)
+   }
+
+   else{}
+
 //timer   
 // fill(255, 255, 0); 
 // let seconds = counter
